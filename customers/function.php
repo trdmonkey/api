@@ -2,6 +2,67 @@
 
 require '../inc/dbcon.php';
 
+function error422($message) {
+
+    $data = [
+        'status' => 422, 
+        'message' => $message, 
+    ];
+    header('HTTP/1.0 422 Entidad no procesable.');
+    echo json_encode($data);
+    exit();
+
+}
+
+function storeCustomer($customerInput) {
+
+    global $conn;
+
+    $name = mysqli_real_escape_string($conn, $customerInput['name']);
+    $email = mysqli_real_escape_string($conn, $customerInput['email']);
+    $phone = mysqli_real_escape_string($conn, $customerInput['phone']);
+
+    if(empty(trim($name))) {
+
+        return error422('Ingresa tu nombre!');
+
+    } elseif(empty(trim($email))) {
+
+        return error422('Ingresa tu email!');
+
+    } elseif(empty(trim($phone))) {
+
+        return error422('Ingresa tu phone!');
+
+    } else {
+
+        $query = "INSERT INTO customers(name, email, phone) VALUES('$name','$email','$phone')";
+        $result = mysqli_query($conn, $query);
+
+        if($result) {
+
+            $data = [
+                'status' => 201, 
+                'message' => 'Error interno del servidor.', 
+            ];
+            header('HTTP/1.0 201 Error interno del servidor.');
+            return json_encode($data);
+
+        } else {
+
+            $data = [
+                'status' => 500, 
+                'message' => 'Error interno del servidor.', 
+            ];
+            header('HTTP/1.0 500 Error interno del servidor.');
+            return json_encode($data);
+
+        }
+
+    }
+}
+
+
 function getCustomerList() {
 
     global $conn;
@@ -17,8 +78,9 @@ function getCustomerList() {
             $data = [
                 'status' => 200, 
                 'message' => 'Lista de clientes obtenida!', 
+                'data' => $res
             ];
-            header('HTTP/1.0 200 Ok!');
+            header('HTTP/1.0 200 Success');
             return json_encode($data);
 
         } else {
