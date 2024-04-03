@@ -10,9 +10,17 @@ include('function.php');
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 if($requestMethod == "GET") {
 
-    
-    $customerList = getCustomerList();
-    echo $customerList;
+    if(isset($_GET['id'])) {
+
+        $customer = getCustomer($_GET);
+        echo $customer;
+
+    } else {
+        
+        $customerList = getCustomerList();
+        echo $customerList;
+
+    }
 
 } else {
 
@@ -25,5 +33,7 @@ if($requestMethod == "GET") {
 
 }
 
+// https://www.youtube.com/watch?v=zVoFXxgfWlU&list=PLRheCL1cXHrtmbYl5LN733N9uSv-oU-UJ&index=3
+/* 3 - 9:20 */
 
 ?>
