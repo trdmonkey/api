@@ -43,9 +43,9 @@ function storeCustomer($customerInput) {
 
             $data = [
                 'status' => 201, 
-                'message' => 'Error interno del servidor.', 
+                'message' => 'Cliente creado con exito.', 
             ];
-            header('HTTP/1.0 201 Error interno del servidor.');
+            header('HTTP/1.0 201 Creacion!');
             return json_encode($data);
 
         } else {
