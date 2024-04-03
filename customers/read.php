@@ -33,7 +33,6 @@ if($requestMethod == "GET") {
 
 }
 
-// https://www.youtube.com/watch?v=zVoFXxgfWlU&list=PLRheCL1cXHrtmbYl5LN733N9uSv-oU-UJ&index=3
-/* 3 - 9:20 */
+
 
 ?>

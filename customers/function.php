@@ -152,10 +152,21 @@ function getCustomer($customerParams) {
 
 }
 
-function updateCustomer($customerInput) {
+function updateCustomer($customerInput, $customerParams) {
 
     global $conn;
 
+    if($customerParams['id']) {
+
+        return error422('Id cliente no encontrado en la URL.');
+
+    } else {
+
+        return error422('Ingresa el Id cliente.');
+
+    }
+
+    $customerId = mysqli_real_escape_string($conn, $customerParams['id']);
     $name = mysqli_real_escape_string($conn, $customerInput['name']);
     $email = mysqli_real_escape_string($conn, $customerInput['email']);
     $phone = mysqli_real_escape_string($conn, $customerInput['phone']);
@@ -174,16 +185,16 @@ function updateCustomer($customerInput) {
 
     } else {
 
-        $query = "INSERT INTO customers(name, email, phone) VALUES('$name','$email','$phone')";
+        $query = "UPDATE customers SET name='$name', email='$email', phone='$phone' WHERE id='$customerId' LIMIT 1";
         $result = mysqli_query($conn, $query);
 
         if($result) {
 
             $data = [
-                'status' => 201, 
-                'message' => 'Cliente creado con exito.', 
+                'status' => 200, 
+                'message' => 'Cliente ACTUALIZADO con exito.', 
             ];
-            header('HTTP/1.0 201 Creacion!');
+            header('HTTP/1.0 200 Creacion!');
             return json_encode($data);
 
         } else {
@@ -201,8 +212,8 @@ function updateCustomer($customerInput) {
 }
 
 
-/* https://www.youtube.com/watch?v=L9LrIW_3YgI&list=PLRheCL1cXHrtmbYl5LN733N9uSv-oU-UJ&index=4 */
-/* 4 - 3:19 */
+/* https://www.youtube.com/watch?v=L9LrIW_3YgI&list=PLRheCL1cXHrtmbYl5LN733N9uSv-oU-UJ&index=5 */
+/* 4 - 8:05 */
 
 
 ?>
