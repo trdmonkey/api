@@ -152,4 +152,57 @@ function getCustomer($customerParams) {
 
 }
 
+function updateCustomer($customerInput) {
+
+    global $conn;
+
+    $name = mysqli_real_escape_string($conn, $customerInput['name']);
+    $email = mysqli_real_escape_string($conn, $customerInput['email']);
+    $phone = mysqli_real_escape_string($conn, $customerInput['phone']);
+
+    if(empty(trim($name))) {
+
+        return error422('Ingresa tu nombre!');
+
+    } elseif(empty(trim($email))) {
+
+        return error422('Ingresa tu email!');
+
+    } elseif(empty(trim($phone))) {
+
+        return error422('Ingresa tu phone!');
+
+    } else {
+
+        $query = "INSERT INTO customers(name, email, phone) VALUES('$name','$email','$phone')";
+        $result = mysqli_query($conn, $query);
+
+        if($result) {
+
+            $data = [
+                'status' => 201, 
+                'message' => 'Cliente creado con exito.', 
+            ];
+            header('HTTP/1.0 201 Creacion!');
+            return json_encode($data);
+
+        } else {
+
+            $data = [
+                'status' => 500, 
+                'message' => 'Error interno del servidor.', 
+            ];
+            header('HTTP/1.0 500 Error interno del servidor.');
+            return json_encode($data);
+
+        }
+
+    }
+}
+
+
+/* https://www.youtube.com/watch?v=L9LrIW_3YgI&list=PLRheCL1cXHrtmbYl5LN733N9uSv-oU-UJ&index=4 */
+/* 4 - 3:19 */
+
+
 ?>
