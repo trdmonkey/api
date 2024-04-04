@@ -212,8 +212,14 @@ function updateCustomer($customerInput, $customerParams) {
 }
 
 
-/* https://www.youtube.com/watch?v=L9LrIW_3YgI&list=PLRheCL1cXHrtmbYl5LN733N9uSv-oU-UJ&index=5 */
-/* 4 - 8:05 */
+
+
+
+
+
+
+
+
 
 
 ?>
