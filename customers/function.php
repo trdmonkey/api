@@ -156,11 +156,11 @@ function updateCustomer($customerInput, $customerParams) {
 
     global $conn;
 
-    if($customerParams['id']) {
+    if(!isset($customerParams['id'])) {
 
         return error422('Id cliente no encontrado en la URL.');
 
-    } else {
+    } elseif($customerParams['id'] == null) {
 
         return error422('Ingresa el Id cliente.');
 

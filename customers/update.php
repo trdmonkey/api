@@ -14,16 +14,16 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 if($requestMethod == 'PUT') {
 
     $inputData = json_decode(file_get_contents("php://input"), true);
-    if(empty($inputData)) {
+    /* if(empty($inputData)) {
 
         // echo $_POST['name'];
         $updateCustomer = updateCustomer($_POST, $_GET);
 
-    } else {
+    } else { */
         
         $updateCustomer = updateCustomer($inputData, $_GET);
         
-    }
+    // }
     echo $updateCustomer;
 
 } else {
@@ -38,7 +38,8 @@ if($requestMethod == 'PUT') {
 }
 
 
-
+/* https://www.youtube.com/watch?v=L9LrIW_3YgI&list=PLRheCL1cXHrtmbYl5LN733N9uSv-oU-UJ&index=6 */
+/* 12:00 */
 
 
 
