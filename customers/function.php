@@ -211,7 +211,47 @@ function updateCustomer($customerInput, $customerParams) {
     }
 }
 
+function deleteCustomer($customerParams) {
 
+    global $conn;
+
+    if(!isset($customerParams['id'])) {
+
+        return error422('Id cliente no encontrado en la URL.');
+
+    } elseif($customerParams['id'] == null) {
+
+        return error422('Ingresa el Id cliente.');
+
+    }
+
+    $customerId = mysqli_real_escape_string($conn, $customerParams['id']);
+
+    $query = "DELETE FROM customers WHERE id=$customerId LIMIT 1";
+    $result = mysqli_query($conn, $query);
+    if($result) {
+
+        $data = [
+            'status' => 204, 
+            'message' => 'Cliente eliminado con exito.', 
+        ];
+        header('HTTP/1.0 204 Eliminado.');
+        return json_encode($data);
+
+    } else {
+
+        $data = [
+            'status' => 404, 
+            'message' => 'Cliente no encontrado.', 
+        ];
+        header('HTTP/1.0 404 Not Found.');
+        return json_encode($data);
+
+    }
+
+
+
+}
 
 
 
